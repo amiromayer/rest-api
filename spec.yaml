@@ -1,0 +1,83 @@
+---
+swagger: "2.0"
+info:
+  description: Prototpe Numbers API for learning purposes
+  version: 0.0.1
+  title: Learning Numbers API
+host: localhost:9000
+basePath: /v1
+tags:
+- name: number
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /numbers:
+    get:
+      tags:
+      - number
+      summary: Returns numbers
+      description: Returns all stored numbers
+      operationId: getNumbers
+      parameters: []
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Number'
+        500:
+          description: Something went wrong
+    post:
+      tags:
+      - number
+      summary: Add number
+      description: Add random numbers with specified count
+      operationId: addNumbers
+      parameters:
+      - in: body
+        name: count
+        required: false
+        schema:
+          $ref: '#/definitions/Count'
+      responses:
+        200:
+          description: OK
+        400:
+          description: Invalid request
+        500:
+          description: Something went wrong
+definitions:
+  Number:
+    type: object
+    required:
+    - value
+    properties:
+      value:
+        type: integer
+    description: Number
+    example:
+      value: 83657
+  Count:
+    type: object
+    required:
+    - count
+    properties:
+      count:
+        type: integer
+    description: Number
+    example:
+      count: 8
+responses:
+  200:
+    description: OK
+  400:
+    description: Invalid request
+  404:
+    description: Not found
+  500:
+    description: Something went wrong
